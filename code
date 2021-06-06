@@ -1,0 +1,78 @@
+ import
+import RPi.GPIO
+from gpiozero import LED
+from time import sleep
+RPi.GPIO.setmode(RPi.GPIO.BCM)
+from guizero import App , Text , TextBox , PushButton
+
+karanled1=LED(18)
+karanled2=LED(14)
+
+# dictionary
+dictionary = { ' ':'/',
+        'A':'.-',
+        'B':'-...',
+        'C':'-.-.',
+        'D':'-..',
+        'E':'.',
+        'F':'..-.',
+        'G':'--.',
+        'H':'....',
+        'I':'..',
+        'J':'.---',
+        'K':'-.-',
+        'L':'.-..',
+        'M':'--',
+        'N':'-.',
+        'O':'---',
+        'P':'.--.',
+        'Q':'--.-',
+        'R':'.-.',
+        'S':'...',
+        'T':'-',
+        'U':'..-',
+        'V':'...-',
+        'W':'.--',
+        'X':'-..-',
+        'Y':'-.--',
+        'Z':'--..'
+        }
+
+
+def code():
+    text=kar.value
+    txt = text[0:12]
+    code = [dictionary[i.upper()] + ' ' for i in txt if i.upper() in dictionary.keys()]
+    morse=''.join(code)
+    print(morse)
+    for i in morse:
+        if i=='.': 
+            led1.on()
+            led2.on()  
+            sleep(1.5)
+            led1.off()
+            led2.off()
+            sleep(1.5)
+           
+           
+        elif i=='-':  
+            led1.on()
+            led2.on()
+            sleep(1.5)
+            led1.off()
+            led2.off()
+            sleep(1)
+           
+        else:
+            sleep(0.5)
+ 
+
+X = App(title = " Morse code ", bg = "yellow")
+kar= TextBox(X,width=20)
+Z= Text(X,text=" enter alphabets", bg = "white")
+
+
+
+txt=PushButton(X,command=code,text="click here")
+
+
